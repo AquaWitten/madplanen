@@ -1,0 +1,10 @@
+services:
+  madplan:
+    image: madplanen:latest
+    ports:
+      - 8080:8080
+
+  swagger:
+    image: swaggerapi/swagger-ui:latest
+    ports:
+      - 8081:8080

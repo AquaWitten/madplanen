@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app
+        xmlns="https://jakarta.ee/xml/ns/jakartaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+          https://jakarta.ee/xml/ns/jakartaee
+          https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+        version="5.0">
+
+    <!-- Servlets -->
+    <servlet>
+        <servlet-name>OpenApiServlet</servlet-name>
+        <servlet-class>dk.madplanen.api.OpenApiServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>IngrediensServlet</servlet-name>
+        <servlet-class>dk.madplanen.api.IngrediensServlet</servlet-class>
+    </servlet>
+
+    <!-- Servlet Mappings -->
+    <servlet-mapping>
+        <servlet-name>OpenApiServlet</servlet-name>
+        <url-pattern>/openapi.yaml</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>IngrediensServlet</servlet-name>
+        <url-pattern>/ingrediens/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Filters -->
+    <filter>
+        <filter-name>CorsFilter</filter-name>
+        <filter-class>dk.madplanen.api.CorsFilter</filter-class>
+    </filter>
+
+    <!-- Filter Mappings -->
+    <filter-mapping>
+        <filter-name>CorsFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+</web-app>
