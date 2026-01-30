@@ -1,10 +1,38 @@
 services:
   madplan:
     image: madplanen:latest
+    container_name: madplanen
     ports:
       - 8080:8080
 
   swagger:
     image: swaggerapi/swagger-ui:latest
+    container_name: swagger-ui
+    environment:
+      SWAGGER_JSON: http://localhost:8080/madplanen/openapi.yaml
     ports:
       - 8081:8080
+
+  postgresql:
+    image: postgres:18.1-alpine3.23
+    container_name: postgresql
+    environment:
+      POSTGRES_PASSWORD: 3a7734b7-7ed2-467f-bb55-333b5c096b80
+      POSTGRES_USER: madplanen-admin
+      POSTGRES_DB: madplanen
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U madplanen-admin -d madplanen" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image:
+    container_name: pgAdmin
+
+volumes:
+  postgres_data:

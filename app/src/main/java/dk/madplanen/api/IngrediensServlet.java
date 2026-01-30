@@ -2,6 +2,8 @@ package dk.madplanen.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dk.madplanen.business.IngrediensService;
+import dk.madplanen.business.ServiceFactory;
 import dk.madplanen.model.Ingrediens;
 import dk.madplanen.model.IngrediensType;
 import jakarta.servlet.http.HttpServlet;
@@ -18,6 +20,13 @@ public class IngrediensServlet extends HttpServlet {
 
     private static final ObjectMapper mapper = new ObjectMapper();
     private final Logger logger = Logger.getLogger(IngrediensServlet.class.getName());
+
+    private IngrediensService ingrediensService;
+
+    @Override
+    public void init() {
+        ingrediensService = ServiceFactory.ingrediensService();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
