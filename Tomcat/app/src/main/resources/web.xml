@@ -1,0 +1,9 @@
+<servlet>
+    <servlet-name>opskrifter</servlet-name>
+    <servlet-class>dk.madplanen.api.OpskriftServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>opskrifter</servlet-name>
+    <url-pattern>/api/v1/opskrift/*</url-pattern>
+</servlet-mapping>

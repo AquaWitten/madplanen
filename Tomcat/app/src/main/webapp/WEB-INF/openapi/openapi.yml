@@ -1,0 +1,130 @@
+openapi: 3.0.3
+info:
+  title: Madplanen API
+  description: API som anvendes for at interagere med Madplanen og dennes indhold.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/madplanen/
+    description: Til test ved lokal kørsel
+
+paths:
+  /ingrediens:
+    get:
+      summary: Hent alle ingredienser
+      responses:
+        '200':
+          description: Ingredienser fundet
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ingrediens'
+    post:
+      summary: Opret ny ingrediens
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngrediensOpret'
+      responses:
+        '201':
+          description: Ingrediens oprettet
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingrediens'
+        '400':
+          description: Request body mangler eller er formateret forkert
+
+  /ingrediens/{id}:
+    get:
+      summary: Hent en eksisterende ingrediens
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Ingrediens er hentet
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingrediens'
+        '404':
+          description: Ingrediens ikke fundet
+    put:
+      summary: Opdater eksisterende ingrediens
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+         required: true
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/IngrediensOpdater'
+      responses:
+         '200':
+           description: Ingrediens er opdateret
+           content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingrediens'
+    delete:
+      summary: Slet en ingrediens
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Ingrediens slettet
+
+components:
+  schemas:
+    Ingrediens:
+      type: object
+      properties:
+        id:
+          type: integer
+        navn:
+          type: string
+        beskrivelse:
+          type: string
+        type:
+          type: string
+      required:
+        - name
+        - type
+
+    IngrediensOpret:
+      type: object
+      properties:
+        navn:
+          type: string
+        beskrivelse:
+          type: string
+        type:
+          type: string
+      required:
+        - name
+        - type
+
+    IngrediensOpdater:
+      type: object
+      properties:
+        navn:
+          type: string
+        beskrivelse:
+          type: string
+        type:
+          type: string
